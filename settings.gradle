@@ -1,0 +1,12 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "common-library"
+include ':app'
+include ':module-common-adapter'
+include ':module-common-utils'
+include ':module-common-widget'
