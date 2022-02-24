@@ -1,16 +1,16 @@
-package com.common.adapter.utils;
+package com.common.adapter.utils
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayList
 
-public class MockUtils {
+class MockUtils {
 
-    public List<String> getMockStringList(int size) {
-        List<String> stringList = new ArrayList<>();
-        String content = "mock data";
-        for (int i = 0; i < size; i++) {
-            stringList.add(i + "--->" + content);
+    fun getMockStringList(size: Int): List<String> {
+        val stringList: MutableList<String> = ArrayList()
+        val content = "mock data"
+        for (i in 0 until size) {
+            stringList.add("$i--->$content")
         }
-        return stringList;
+        return stringList
     }
+
 }

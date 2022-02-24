@@ -4,15 +4,17 @@ plugins {
     id 'maven-publish'
 }
 group = 'com.llaiden.commonlibrary'
+version '1.0.1'
+def artifact = 'common-adapter'
 
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.llaiden.commonlibrary'
-                artifactId = 'common-adapter'
-                version = '1.0.0'
+                groupId = group
+                artifactId = artifact
+                version = version
             }
         }
     }
@@ -24,8 +26,6 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -38,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
