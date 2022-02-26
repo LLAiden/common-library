@@ -39,4 +39,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':module-common-widget')
     implementation project(path: ':module-common-adapter')
+    implementation project(path: ':module-common-package')
+    implementation project(path: ':module-common-utils')
 }
