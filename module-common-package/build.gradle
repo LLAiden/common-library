@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
+
+group = 'com.github.llaiden'
 
 android {
     compileSdk 30
@@ -40,8 +43,9 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.6'
     api 'com.squareup.retrofit2:converter-gson:2.0.0'
     api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-    api 'org.projectlombok:lombok:1.18.8'
     api 'com.uber.autodispose2:autodispose-android:2.1.1'
     api 'com.uber.autodispose2:autodispose-androidx-lifecycle:2.1.1'
+
+    api 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }

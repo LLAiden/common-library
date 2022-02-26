@@ -4,22 +4,8 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.llaiden.commonlibrary'
-version '1.0.1'
-def artifact = 'common-widget'
+group = 'com.github.llaiden'
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = group
-                artifactId = artifact
-                version = version
-            }
-        }
-    }
-}
 android {
     compileSdk 31
 

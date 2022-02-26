@@ -3,22 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'maven-publish'
 }
-group = 'com.llaiden.commonlibrary'
-version '1.0.1'
-def artifact = 'common-adapter'
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = group
-                artifactId = artifact
-                version = version
-            }
-        }
-    }
-}
+group = 'com.github.llaiden'
 
 android {
     compileSdk 31
