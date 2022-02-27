@@ -21,13 +21,6 @@ afterEvaluate {
     publishing {
         repositories {
             maven {
-                url "https://packages.aliyun.com/maven/repository/2007392-release-YI8DhV/"
-                credentials {
-                    username  '5eddf9c5723771c6a58e399f'
-                    password  'Y22UOjcn-n8X'
-                }
-            }
-            maven {
                 credentials {
                     username '5eddf9c5723771c6a58e399f'
                     password 'Y22UOjcn-n8X'

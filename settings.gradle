@@ -11,13 +11,6 @@ dependencyResolutionManagement {
                 username '5eddf9c5723771c6a58e399f'
                 password 'Y22UOjcn-n8X'
             }
-            url 'https://packages.aliyun.com/maven/repository/2007392-release-YI8DhV/'
-        }
-        maven {
-            credentials {
-                username '5eddf9c5723771c6a58e399f'
-                password 'Y22UOjcn-n8X'
-            }
             url 'https://packages.aliyun.com/maven/repository/2007392-snapshot-gSFUiN/'
         }
     }

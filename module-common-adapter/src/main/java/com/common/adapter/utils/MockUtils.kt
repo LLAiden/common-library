@@ -2,7 +2,7 @@ package com.common.adapter.utils
 
 import java.util.ArrayList
 
-class MockUtils {
+object MockUtils {
 
     fun getMockStringList(size: Int): List<String> {
         val stringList: MutableList<String> = ArrayList()
