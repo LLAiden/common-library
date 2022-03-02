@@ -5,9 +5,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ScrollingView
-import java.util.*
 
-object ViewHelper {
+object ViewUtil {
     /**
      * 获得这个节点下所有的View不包含View
      */
@@ -75,19 +74,35 @@ object ViewHelper {
     }
 
     //判断一个View能不能向上滑动 direction>0表示向上滑动
-    fun canSlideUp(view: View?): Boolean {
+    fun canBottom2Top(view: View?): Boolean {
         return view?.canScrollVertically(1) ?: false
     }
 
-    fun canSlideDown(view: View?): Boolean {
+    fun canTop2Bottom(view: View?): Boolean {
         return view?.canScrollVertically(-1) ?: false
     }
 
-    fun canSlideLeft(view: View?): Boolean {
+    fun canRight2Left(view: View?): Boolean {
         return view?.canScrollHorizontally(1) ?: false
     }
 
-    fun canSlideRight(view: View?): Boolean {
+    fun canLeft2Right(view: View?): Boolean {
         return view?.canScrollHorizontally(-1) ?: false
+    }
+
+    fun isBottom2Top(value: Int): Boolean {
+        return value > 0
+    }
+
+    fun isTop2Bottom(value: Int): Boolean {
+        return value < 0
+    }
+
+    fun isRight2Left(value: Int): Boolean {
+        return value < 0
+    }
+
+    fun isLeft2Right(value: Int): Boolean {
+        return value > 0
     }
 }
