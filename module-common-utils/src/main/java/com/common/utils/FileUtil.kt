@@ -5,6 +5,9 @@ import java.nio.channels.FileChannel
 
 object FileUtil {
 
+
+    // 创建文件失败添加这一句 android:requestLegacyExternalStorage="true"
+    //  &         targetSdk 29
     fun createFile(path: String): Boolean {
         val file = File(path)
         if (!file.exists()) {

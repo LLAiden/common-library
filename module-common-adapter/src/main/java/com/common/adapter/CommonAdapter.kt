@@ -64,4 +64,12 @@ abstract class CommonAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.itemLongClickListener = itemLongClickListener
         return this
     }
+
+    fun addData(t: T) {
+        dataList.add(t)
+    }
+
+    fun addData(t: List<T>) {
+        dataList.addAll(t)
+    }
 }

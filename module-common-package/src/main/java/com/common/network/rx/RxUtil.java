@@ -28,7 +28,7 @@ public class RxUtil {
         return Schedulers.io();
     }
 
-    public static Scheduler getMainScheduler(Runnable runnable) {
+    public static Scheduler getMainScheduler() {
         return AndroidSchedulers.mainThread();
     }
 

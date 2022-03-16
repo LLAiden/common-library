@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@lombok.NoArgsConstructor
-@lombok.Data
 public class WeChatPublicAccountBean {
 
 
@@ -16,8 +14,7 @@ public class WeChatPublicAccountBean {
     @SerializedName("errorMsg")
     private String errorMsg;
 
-    @lombok.NoArgsConstructor
-    @lombok.Data
+
     public static class DataDTO {
         @SerializedName("children")
         private List<?> children;

@@ -9,14 +9,10 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/audioRecording"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取数据" />
+        android:text="跳转音频录制" />
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>

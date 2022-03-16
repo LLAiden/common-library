@@ -9,7 +9,10 @@ object RetrofitFactory {
 
     private val serviceMap = HashMap<String, Any>()
 
-    fun newInstance(baseUrl: String, okHttpClient: OkHttpClient = OkHttpClientFactory.newOkHttpClient()): Retrofit {
+    fun newInstance(
+        baseUrl: String,
+        okHttpClient: OkHttpClient = OkHttpClientFactory.newOkHttpClient()
+    ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(baseUrl)
@@ -18,18 +21,19 @@ object RetrofitFactory {
             .build()
     }
 
-    private fun <T : Any> create(service: Class<T>, retrofit: Retrofit): T? {
+    private fun <T : Any> create(service: Class<T>, retrofit: Retrofit): Any? {
         val cacheService = serviceMap[service.name]
-        if (cacheService == null) {
+        return if (cacheService == null) {
             val targetService = retrofit.create(service)
             serviceMap[service.name] = targetService
-            return targetService
+            targetService
         } else {
             if (cacheService.javaClass != service.javaClass) {
                 serviceMap.remove(service.name)
-                return create(service, retrofit)
+                create(service, retrofit)
+            } else {
+                cacheService
             }
         }
-        return null
     }
 }
