@@ -12,7 +12,11 @@
         android:id="@+id/audioRecording"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="跳转音频录制" />
+        android:text="音频录制" />
 
-
+    <Button
+        android:id="@+id/camera_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="相机" />
 </LinearLayout>

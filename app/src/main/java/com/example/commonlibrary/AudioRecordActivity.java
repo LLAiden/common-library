@@ -2,7 +2,6 @@ package com.example.commonlibrary;
 
 import android.media.AudioFormat;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.common.adapter.CommonAdapter;
 import com.common.adapter.viewholder.ViewHolder;
 import com.common.media.AudioRecordProxy;
-import com.common.media.MediaUtil;
+import com.common.media.MultimediaHelper;
 import com.common.network.rx.RxUtil;
 import com.common.utils.FileUtil;
 import com.common.utils.ToastUtil;
@@ -23,7 +22,6 @@ import com.common.utils.ToastUtil;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,20 +44,13 @@ public class AudioRecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         mAudioRecordProxy = new AudioRecordProxy(this);
         findViewById(R.id.start).setOnClickListener(v -> {
-            String externalStorageState = Environment.getExternalStorageDirectory().getPath();
-            StringBuilder stringBuilder = new StringBuilder(externalStorageState)
-                    .append(File.separator)
-                    .append("ACommonLibrary")
-                    .append(File.separator)
-                    .append(mSimpleDateFormat.format(new Date()))
-                    .append(".pcm");
-            Log.e(TAG, "onClick: stringBuilder: " + stringBuilder);
-            boolean instanceFile = FileUtil.INSTANCE.createFile(stringBuilder.toString());
+            String filePath = Util.getFilePath(".pcm");
+            Log.e(TAG, "onClick: stringBuilder: " + filePath);
+            boolean instanceFile = FileUtil.INSTANCE.createFile(filePath);
             if (instanceFile) {
                 Log.e(TAG, "onClick: instanceFile: " + true);
-                String path = stringBuilder.toString();
-                mFile = new File(path);
-                notifyLogRefresh("创建文件： " + path);
+                mFile = new File(filePath);
+                notifyLogRefresh("创建文件： " + filePath);
                 mCompositeDisposable.add(RxUtil.getIoScheduler().scheduleDirect(mAudioRecordProxy.startRecording(mFile)));
                 ToastUtil.INSTANCE.showShort(getApplicationContext(), "开始录制...");
             }
@@ -76,7 +67,7 @@ public class AudioRecordActivity extends AppCompatActivity {
                     Log.e(TAG, "onClick: finalPath: " + finalPath);
                     FileUtil.INSTANCE.createFile(finalPath);
                     notifyLogRefresh("创建文件： " + finalPath);
-                    Runnable runnable = MediaUtil.convertPcm2Wav(mFile, new File(finalPath), mAudioRecordProxy.getSampleRateInHz(), AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+                    Runnable runnable = MultimediaHelper.convertPcm2Wav(mFile, new File(finalPath), mAudioRecordProxy.getSampleRateInHz(), AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
                     runnable.run();
                     notifyLogRefresh("转换wav完成，删除源文件： " + absolutePath);
                     boolean delete = mFile.delete();
@@ -93,7 +84,7 @@ public class AudioRecordActivity extends AppCompatActivity {
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mCommonAdapter = new CommonAdapter<String>(this, android.R.layout.simple_list_item_1, new ArrayList<>()) {
             @Override
             public void convert(@NonNull ViewHolder holder, String o) {
@@ -107,12 +98,7 @@ public class AudioRecordActivity extends AppCompatActivity {
         if (mCommonAdapter != null) {
             mCommonAdapter.addData(log);
             int itemCount = mCommonAdapter.getItemCount();
-            RxUtil.getMainScheduler().scheduleDirect(new Runnable() {
-                @Override
-                public void run() {
-                    mCommonAdapter.notifyItemInserted(itemCount - 1);
-                }
-            });
+            RxUtil.getMainScheduler().scheduleDirect(() -> mCommonAdapter.notifyItemInserted(itemCount - 1));
         }
     }
 

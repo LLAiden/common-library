@@ -78,11 +78,9 @@ public class AudioRecordProxy {
 
     public Runnable startRecordThread(File file) {
         return () -> {
-            FileOutputStream fileOutputStream = null;
             int bufferSize = getAudioRecordBufferSize();
             final byte[] buffer = new byte[bufferSize];
-            try {
-                fileOutputStream = new FileOutputStream(file);
+            try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
                 while (isRecording) {
                     int readStatus = mAudioRecord.read(buffer, 0, bufferSize);
                     Log.d(TAG, "run: readStatus=" + readStatus);
@@ -91,14 +89,6 @@ public class AudioRecordProxy {
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.e(TAG, "run: ", e);
-            } finally {
-                if (fileOutputStream != null) {
-                    try {
-                        fileOutputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         };
     }

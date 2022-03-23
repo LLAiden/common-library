@@ -9,11 +9,16 @@ object FileUtil {
     // 创建文件失败添加这一句 android:requestLegacyExternalStorage="true"
     //  &         targetSdk 29
     fun createFile(path: String): Boolean {
-        val file = File(path)
+        return createFile(File(path))
+    }
+
+
+    fun createFile(file: File): Boolean {
         if (!file.exists()) {
             if (!file.parentFile?.exists()!!) {
                 file.parentFile?.mkdirs()
             }
+            file.parentFile?.setWritable(true)
             return try {
                 file.createNewFile()
             } catch (e: IOException) {
@@ -106,7 +111,8 @@ object FileUtil {
      */
     fun rename(originPath: String, targetPath: String): Boolean {
         return moveFile(
-            originPath, targetPath)
+            originPath, targetPath
+        )
     }
 
     /**
@@ -141,10 +147,37 @@ object FileUtil {
         try {
             BufferedWriter(FileWriter(file, isAppend)).use { bufferedWriter ->
                 bufferedWriter.write(
-                    content, 0, content.length)
+                    content, 0, content.length
+                )
             }
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
+
+    fun bytes2File(byte: ByteArray, targetFile: File) {
+        if (targetFile.exists()) {
+            targetFile.delete()
+        }
+        val createFile = createFile(targetFile)
+        println("createFile: $createFile")
+        val bos = BufferedOutputStream(FileOutputStream(targetFile))
+        bos.write(byte)
+        bos.flush()
+        bos.close()
+    }
+
+    fun file2Bytes(file: File): ByteArray {
+        val fis = FileInputStream(file)
+        val bos = ByteArrayOutputStream()
+        val buf = ByteArray(1024)
+        while (true) {
+            var len = fis.read(buf)
+            if (len == -1) {
+                break
+            }
+            bos.write(buf, 0, len)
+        }
+        return bos.toByteArray()
     }
 }

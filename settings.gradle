@@ -4,15 +4,17 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url 'https://maven.aliyun.com/repository/public'
-        }
-        maven {
             credentials {
                 username '5eddf9c5723771c6a58e399f'
                 password 'Y22UOjcn-n8X'
             }
             url 'https://packages.aliyun.com/maven/repository/2007392-snapshot-gSFUiN/'
         }
+
+        maven { url'https://maven.aliyun.com/repository/public/' }
+        maven { url'https://maven.aliyun.com/repository/google/' }
+        maven { url'https://maven.aliyun.com/repository/jcenter/' }
+        maven { url'https://maven.aliyun.com/repository/central/'}
     }
 }
 rootProject.name = "common-library"

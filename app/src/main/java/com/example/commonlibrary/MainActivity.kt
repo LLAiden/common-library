@@ -15,5 +15,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.audioRecording).setOnClickListener {
             startActivity(Intent(this, AudioRecordActivity::class.java))
         }
+        findViewById<View>(R.id.camera_btn).setOnClickListener {
+            startActivity(Intent(this, CameraActivity::class.java))
+        }
     }
 }
